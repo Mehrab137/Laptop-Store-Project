@@ -23,12 +23,13 @@ class LaptopController extends Controller
         $laptop->ram = $request->ram;
         $laptop->save();
 
-        return redirect()->route('add.laptop.view');
+        return redirect()->route('view.laptop.list');
     }
 
     public function viewLaptopList()
     { 
         $laptops = Laptop::select('id', 'brand', 'model', 'processor', 'cores', 'ram')->get();
+
         return view('view_laptop', ['laptops' => $laptops]);
     }
 
