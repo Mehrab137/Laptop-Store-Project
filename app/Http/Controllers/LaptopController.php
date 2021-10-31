@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\Laptop;
+use PDF;
 
 class LaptopController extends Controller
 {
@@ -47,6 +48,15 @@ class LaptopController extends Controller
         }
         return view('view_laptop');
                        
+    }
+
+    public function createPdf()
+    {
+        $laptops = Laptop::select(['id', 'brand', 'model', 'processor', 'cores', 'ram'])->get();
+        view()->share('laptops', $laptops);
+        $pdf = PDF::loadView('view_pdf', $laptops);
+
+        return $pdf->download('pdf_file.pdf');
     }
 
     }

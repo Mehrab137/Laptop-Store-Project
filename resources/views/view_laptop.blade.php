@@ -3,6 +3,7 @@
 @section('content')
 
 <p style="font-size: x-large"><b>Here are the informations recorded, organised in a Datatable</b></p>
+<a class="btn btn-primary" href="{{ route('create.pdf.laptop') }}">Export to PDF</a>
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
