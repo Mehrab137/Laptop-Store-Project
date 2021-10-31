@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Yajra\Datatables\Datatables;
 use App\Models\Laptop;
 
 class LaptopController extends Controller
@@ -26,13 +26,27 @@ class LaptopController extends Controller
         return redirect()->route('view.laptop.list');
     }
 
-    public function viewLaptopList()
+    public function viewLaptopList(Request $request)
     { 
-        $laptops = Laptop::select('id', 'brand', 'model', 'processor', 'cores', 'ram')->get();
+        // $laptops = Laptop::select('id', 'brand', 'model', 'processor', 'cores', 'ram')->get();
 
-        return view('view_laptop', ['laptops' => $laptops]);
+        // return view('view_laptop', ['laptops' => $laptops]);
+
+       
+        
+        if ($request->ajax()) {
+            $laptops = Laptop::select(['id', 'brand', 'model', 'processor', 'cores', 'ram'])->get();
+            return Datatables::of($laptops)
+            ->addColumn('action', function(){
+                return '<button class="btn btn-danger">See</button>';
+                })
+            ->rawColumns(['action'])
+            ->make(true);
+
+
+        }
+        return view('view_laptop');
+                       
     }
 
-}
-
-
+    }

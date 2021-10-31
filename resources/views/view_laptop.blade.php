@@ -15,22 +15,11 @@
                         <th>Processor</th>
                         <th>Number of Cores</th>
                         <th>RAM</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
-                    @foreach ($laptops as $laptop)
-                        <tr>
-                            <td>{{ $laptop->id }}</td>
-                            <td>{{ $laptop->brand }}</td>
-                            <td>{{ $laptop->model }}</td>
-                            <td>{{ $laptop->processor }}</td>
-                            <td>{{ $laptop->cores }}</td>
-                            <td>{{ $laptop->ram }}</td>
-                        </tr>
-                    @endforeach
-
                 </tbody>
             </table>
         </div>
@@ -41,10 +30,56 @@
 
 @push('js')
     
-<script>
+<script type="text/javascript">
 
     $(document).ready( function () {
-        $('#laptops_table').DataTable();
+        //alert("rftgdfgdf");
+
+        
+        // $('#laptops_table').DataTable(
+        //     processing: true;
+        //     serverSide:true;
+
+        //     ajax:"/view-list",
+
+        //     columns: [
+        //         {data: 'id' , name:'id'}
+        //         {data: 'brand' , name:'brand'}
+        //         {data: 'model' , name:'model'}
+        //         {data: 'processor' , name:'processor'}
+        //         {data: 'cores' , name:'cores'}
+        //         {data: 'ram' , name:'ram'}
+        //         {
+        //             data: 'action', 
+        //             name: 'action', 
+        //             orderable: true, 
+        //             searchable: true,
+        //         }
+        //     ]
+
+        // );
+
+        $('#laptops_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('view.laptop.list') }}",
+            columns: [
+                {data: 'id' , name:'id'},
+                {data: 'brand' , name:'brand'},
+                {data: 'model' , name:'model'},
+                {data: 'processor' , name:'processor'},
+                {data: 'cores' , name:'cores'},
+                {data: 'ram' , name:'ram'},
+                {
+                    data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true,
+                }
+            ]
+        });
+
+
     });
 
 </script>
